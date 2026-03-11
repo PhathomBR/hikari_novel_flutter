@@ -61,8 +61,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           # 如果你输入了版本号就用你的，没输入就用 build-1, build-2 这样的序号
-          tag_name: ${{ inputs.version || format('build-{0}', github.run_number) }}
-          name: ${{ inputs.version || format('Build #{0}', github.run_number) }}
+          tag_name: "${{ inputs.version || format('build-{0}', github.run_number) }}"
+          name: "${{ inputs.version || format('Build #{0}', github.run_number) }}"
           body: "这是通过 GitHub Actions 自动构建的 ARM64 优化版 APK。"
           # 使用通配符 * 来匹配刚刚重命名好的 APK 文件
           files: |
