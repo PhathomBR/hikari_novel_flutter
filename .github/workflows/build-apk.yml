@@ -1,6 +1,6 @@
 name: Build Hikari Novel APK
 
-于:
+on:
   workflow_dispatch: # 保留手动触发按钮
 
 env:
