@@ -1,4 +1,4 @@
-name: Build Hikari Novel APK
+name: 编译 Hikari Novel APK
 
 on:
   workflow_dispatch: # 保留手动触发按钮
