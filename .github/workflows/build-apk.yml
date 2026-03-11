@@ -1,0 +1,37 @@
+name: Build Hikari Novel APK
+
+on:
+  workflow_dispatch: # 保留手动触发按钮
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # 编译安卓 APK 使用 Linux 环境即可，速度更快
+
+    steps:
+      - name: 检出代码 (Checkout Repository)
+        uses: actions/checkout@v4
+
+      - name: 配置 Java 环境 (Setup Java)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu' # Flutter 官方推荐的 Java 发行版
+          java-version: '17'   # 较新的 Android 编译工具链通常需要 Java 17
+
+      - name: 配置 Flutter 环境 (Setup Flutter)
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.38.7' # 严格对齐作者的 Flutter 版本
+          channel: 'stable'         # 对应作者的 stable 分支
+
+      - name: 获取依赖包 (Pub Get)
+        run: flutter pub get
+
+      - name: 编译 Release APK (Build APK)
+        run: flutter build apk --release
+
+      - name: 上传安装包 (Upload Artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: hikari-novel-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 7 # 安装包在 GitHub 上保留 7 天
